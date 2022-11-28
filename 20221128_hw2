@@ -18,7 +18,7 @@ int main(){
 	}
 	int i=0;
 	while(N>1){	
-		while(A[i] && !(N%i) && N>1){	//A[i]是質數 且 N可以被A[i]整除 且 N>1
+		while(A[i] && !(N%i) && N>1){	/i是質數 且 N可以被i整除 且 N>1
 			N/=i;
 			cout<<i<<" "; 
 		}
