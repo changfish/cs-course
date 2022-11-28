@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+
+int main(){
+	int N;
+	cin>>N;
+	int A[N+1];		//建立質數表 
+	for(int i=0;i<N+1;i++)
+		A[i]=1;			//先假設全為質數 
+	A[0]=0;
+	A[1]=0;
+	for(int i=2;i<N+1;i++){
+		if(A[i]){
+			for(int j=2*i;j<N+1;j+=i)
+				A[j]=0;				//把不符合的變非質數 
+		}
+	}
+	int i=0;
+	while(N>1){	
+		while(A[i] && !(N%i) && N>1){	//A[i]是質數 且 N可以被A[i]整除 且 N>1
+			N/=i;
+			cout<<i<<" "; 
+		}
+		i++;
+	}
+} 
