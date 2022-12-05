@@ -1,0 +1,32 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+typedef long long ll;
+
+const int MAXSIZE = 1e6+1;		//初始化陣列大小 
+int a[MAXSIZE];		//設一個陣列 
+
+
+int DP(ll N){	//動態規劃 
+	if(N>1000000){		//超過1e6容易出錯 
+		if(N&1)	return DP(3*N+1)+1;		//N&1 等價 N%2=1?  但執行效率更快一點 
+		else return DP(N/2)+1;
+	}
+	if(!a[N]){		//如果dp[N]不等於0 
+		if(N&1)	a[N] = DP(3*N+1)+1;		
+		else a[N] = DP(N/2)+1;
+	}
+		return a[N];
+}
+
+int main(){
+	int i = MAXSIZE,input;
+	while(i--)		//先歸零 避免出錯 =P 
+		a[i]=0;
+	a[2] = 1;		//給定初始值 
+	while(cin>>input){		//可以連續輸入 
+		cout<<DP(input)<<endl;
+	}
+		
+}
