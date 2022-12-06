@@ -1,0 +1,12 @@
+#include <iostream>
+using namespace std;
+#define ll long long    //裝逼用 讓數字可以達到8byte
+
+int main(){
+	ll N;   //可以存8byte(64bit)、最大2^64-1的數字
+	cin>>N;
+	while(N>0){   //除到最後會剩下0 這時就不執行
+		cout<<N%10; //每次都取最後一位
+		N/=10;    //c++除以10會無條件捨去
+	}
+} 
