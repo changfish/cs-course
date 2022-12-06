@@ -2,7 +2,6 @@
 #include <algorithm>    //要用STL的reverse(反轉)功能
 using namespace std;
 
-
 int main(){
 	string s;		//宣告一個字串  等等用C++內建STL解
 	while(cin>>s){    //可以一直輸入 這邊可以改輸入一次就好=P
