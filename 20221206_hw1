@@ -1,0 +1,31 @@
+#include <algorithm>
+#include <vector>
+using namespace std;
+typedef long long ll;
+
+const int MAXSIZE = 1e6+1;		//初始化陣列大小 10^6+1
+ll a[MAXSIZE];
+
+int F(ll N){	//遞迴 
+	if(N==0)	return 0;	//特殊條件 0就回傳0 
+	if(!a[N]){		//a[N] == 0?
+		a[N] = F(N-1)+F(N-2);	//遞迴算式 
+	}
+	return a[N];	//回傳值 
+}
+
+int main(){
+	int i = MAXSIZE,n;
+	while(i--)		//先歸零 避免出錯 =P 
+		a[i]=0;
+	a[0] = 0;
+	a[1] = 1;
+	a[2] = 1;		//給定初始值 
+	while(cin>>n){		//可以連續輸入 
+		for(i=0;i<=n;i++){
+			cout<<F(i)<<" ";
+		}
+		cout<<endl;
+	}
+		
+} 
