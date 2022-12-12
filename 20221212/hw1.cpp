@@ -57,5 +57,5 @@ void lbubblesort(int A[], int l, int r){		//向左的bubble sort
 	}
 	printarray(A);
 	if(test(A,recall,l,r))
-		lbubblesort(A,l+1,r);
+		rbubblesort(A,l+1,r);
 }
