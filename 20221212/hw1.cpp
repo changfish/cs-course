@@ -19,9 +19,9 @@ int test(int A[],int recall[],int l,int r){					//簡單判斷是否提早排序
 }
 
 void rbubblesort(int* ,int, int);		//int* 傳的是pointer 
-void lbubblesort(int* ,int, int);
+void lbubblesort(int* ,int, int);		//這邊只是先宣告而已
 
-int main(){
+int main(){					//主程式
 	int A[maxsize];
 	for(int i=0;i<maxsize;i++)
 		cin>>A[i];		
@@ -41,7 +41,7 @@ void rbubblesort(int A[], int l, int r){		//向右的bubble sort
 		}
 	}
 	if(test(A,recall,l,r))			//還沒排序完 才要排序 
-		lbubblesort(A,l,r-1);
+		lbubblesort(A,l,r-1);		//向右完就讓他向左 並 右邊縮減(因為最右邊確定了)
 }
 
 void lbubblesort(int A[], int l, int r){		//向左的bubble sort 
@@ -57,5 +57,5 @@ void lbubblesort(int A[], int l, int r){		//向左的bubble sort
 	}
 	printarray(A);
 	if(test(A,recall,l,r))
-		rbubblesort(A,l+1,r);
+		rbubblesort(A,l+1,r);		//向左完就讓他向右 並 左邊縮減(因為最左邊確定了)
 }
