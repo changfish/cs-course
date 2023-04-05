@@ -22,6 +22,6 @@ int main(){
  				cout<<"Scalene";
  				break;
  		}
- 		cout<<"Triangle\nInput three sides of triangle: ";
+ 		cout<<" Triangle\nInput three sides of triangle: ";
  	}
  }
