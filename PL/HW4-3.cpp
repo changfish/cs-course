@@ -21,7 +21,7 @@ int main(){
 	}
 	if(cmd == "lower")					//我還是很抱歉 我看不懂step或是我就在瞎搞 
 		sort(v.begin(),v.end(),lower);	//STL sort
-	else
+	else if(cmd == "upper")
 		sort(v.begin(),v.end(),upper);	//using iterator to operate
 	
 	printf("Celsius\t\t|\tFahrenheit\n");
