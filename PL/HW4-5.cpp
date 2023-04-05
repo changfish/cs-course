@@ -40,7 +40,7 @@ int main(){
 	cout<<"ln(1-"<<x<<") \t= "<<lnn<<endl;
 	tem = 1,i = 1;
 	while(tem>minn){
-		if((i+1)&1)
+		if((i+1)&1)	//(i+1) and 1 等價 (i+1) mod 2
 			tem = (-1)*pow(x,i)/i;
 		else
 			tem = pow(x,i)/i;
