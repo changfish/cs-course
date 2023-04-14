@@ -13,7 +13,7 @@ ll pow(ll a, int n){
 int main(){
 	int a,n;
 	cout<<"Input base number:";
-	while(cin>>a){	//keep typing until ztrl+z
+	while(cin>>a){	//keep typing until ctrl+z
 		cout<<"Input exponet:";
 		cin>>n;
 		cout<<a<<"^"<<n<<" = "<<pow(a,n)<<endl;
