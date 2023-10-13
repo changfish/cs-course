@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include<Windows.h>
 using namespace std;
 
 
@@ -12,11 +13,11 @@ int m,n;	//the maze size
 
 
 //to store node
-vector< vector< vector< pair<int,int> > > > graph;	//use vector to store map data and use map to store nearby node
+vector< vector< vector< pair<int,int> > > > graph;	//use vector to store maze data and use map to store nearby node
 //to store initial and final point
 pair<int,int> start,end;
 
-//³oÃä­n¼gdir trans func ©Î¬Oª½±µ¥Îdir¨Óªí¥Ü 
+//這邊要寫dir trans func 或是直接用dir來表示 
 
 vector< pair<int,int> > ans;
 vector< pair<int,int> >::iterator it;
@@ -81,15 +82,18 @@ void DFS(int x,int y){
 
 
 
-//ÁÙ¨S§â³s³qªº¹D¸ô¦ê°_¨Ó(ÁÙ¨S¹ê§@next)¡A»Ý­n¥ý¼g¦ndir transform function 
+//還沒把連通的道路串起來(還沒實作next)，需要先寫好dir transform function 
 
 int main() {
+	
+	//initial color is white
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_RED|FOREGROUND_GREEN|FOREGROUND_BLUE);
 	cin>>m>>n;
 	int maze[m][n];	//store maze
-	// ­nªì©l¤Æmaze to 1 
+	// 要初始化maze to 1 
 	cout<<"the maze is:\n";
 		
-	//fectch maze(­nÃä¿é¤J Ãäfetch to node)
+	//fectch maze(要邊輸入 邊fetch to node)
 	for(int i=0;i<m;i++){
 		vector< vector< pair<int,int> > > tem_i;
 		graph.push_back(tem_i);
@@ -104,7 +108,7 @@ int main() {
 				for(int k=0;k<4;k+=2){
 					int sur_x = j+dir[3 + dir[k]*2 + 2], sur_y = i+dir[3 + dir[k]*2 + 1];
 					if(sur_x>=0 && sur_y>=0 && !maze[sur_y][sur_x]){
-						graph[i][j].push_back(make_pair(sur_x,sur_y));	//order:top lift down right(algorithm cause)
+						graph[i][j].push_back(make_pair(sur_x,sur_y));	//order:up(y up) lift down(y down) right(algorithm cause)
 						graph[sur_y][sur_x].push_back(make_pair(j,i));	
 					}
 				}
@@ -122,8 +126,14 @@ int main() {
 	}
 	for(int i=0;i<m;i++){
 		for(int j=0;j<n;j++){
-			if(maze[i][j]==2)	cout<<'*';
-			else cout<<maze[i][j];
+			if(maze[i][j]==2){
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_RED|FOREGROUND_GREEN);
+				cout<<'*';
+			}
+			else{
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_INTENSITY|FOREGROUND_RED|FOREGROUND_GREEN|FOREGROUND_BLUE);
+				cout<<maze[i][j];
+			}
 			cout<<' ';
 		}
 		cout<<endl;
