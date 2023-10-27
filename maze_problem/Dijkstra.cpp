@@ -12,7 +12,6 @@ const int dir[32] = {0,1,2,3,4,5,6,7,-1,0,1,0,0,-1,0,1,-1,-1,1,-1,-1,1,1,1};	//t
 
 int m,n;	//the maze size
 
-
 //to store node
 vector< vector< vector< pair<int,int> > > > graph;	//use vector to store maze data and use map to store nearby node
 //to store initial and final point
@@ -27,19 +26,18 @@ vector< pair<int,int> > min_path(vector< pair<int,int> > a,vector< pair<int,int>
 }
 
 int next_x,next_y;
-void delete_path(int x,int y){
+void delete_path(int x,int y,int nx,int ny){
 	vector< pair<int,int> > ::iterator it;
-	it = graph[next_y][next_x].begin();
-	while(it->first != x || it->second != y){
+	it = graph[ny][nx].begin();
+	while(it<graph[ny][nx].end()&&(it->first != x || it->second != y ) ){
 		it++;
 	}
-	graph[next_y][next_x].erase(it);
+	if(it<graph[ny][nx].end())
+		graph[ny][nx].erase(it);
 }
-
 queue< pair<int,int> >q;
 void BFS(int x,int y){
 	node[make_pair(x,y)]=1;
-	int sz=q.size();
 	for(int i=0;i<graph[y][x].size();i++){
 		next_x = graph[y][x][i].first,next_y = graph[y][x][i].second;
 		vector< pair<int,int> > tem = ans[make_pair(x,y)];
@@ -49,14 +47,18 @@ void BFS(int x,int y){
 		}else{
 			ans[make_pair(next_x,next_y)] = tem;	
 		}
-		delete_path(x,y);
+		if(!node[make_pair(next_x,next_y)])
 		q.push(make_pair(next_x,next_y));
 	}
 	q.pop();
 	pair<int,int> p = q.front();
-	if(!node[make_pair(p.first,p.second)]){
+	cout<<p.first<<" "<<p.second<<endl;
+	cout<<q.size()<<endl;
+
+	if(x!=end.first&&y!=end.second){
+		delete_path(x,y,p.first,p.second);
 		BFS(p.first,p.second);
-	}
+	} 
 }
 
 
@@ -82,7 +84,7 @@ int main() {
 			if(!maze[i][j]){
 				if(!j) start = make_pair(j,i); //the initial point alwas be lift side
 				if((j==n-1 || i==m-1 || !i))	end = make_pair(j,i);	//set the final point
-				for(int k=0;k<4;k+=2){
+				for(int k=0;k<8;k+=2){
 					int sur_x = j+dir[7 + dir[k]*2 + 2], sur_y = i+dir[7 + dir[k]*2 + 1];
 					if(sur_x<n&&sur_x>=0 && sur_y>=0 && !maze[sur_y][sur_x]){
 						graph[i][j].push_back(make_pair(sur_x,sur_y));	//order:up(y up) lift down(y down) right(algorithm cause)
@@ -96,17 +98,17 @@ int main() {
 	BFS(start.first,start.second);
 	cout<<"------------------\n";
 	cout<<"the result is:\n";
-//	for(int i=0;i<m;i++){
-//		for(int j=0;j<n;j++){
-//			if(ans[make_pair(j,i)].size()){
-//			printf("(%d,%d)=>",j,i);
-//				for(int k=0;k<ans[make_pair(j,i)].size();k++){
-//					printf("(%d,%d) ",ans[make_pair(j,i)][k].first,ans[make_pair(j,i)][k].second);
-//				}
-//				cout<<endl;
-//			}
-//		}
-//	}
+	// for(int i=0;i<m;i++){
+	// 	for(int j=0;j<n;j++){
+	// 		if(ans[make_pair(j,i)].size()){
+	// 		printf("(%d,%d)=>",j,i);
+	// 			for(int k=0;k<ans[make_pair(j,i)].size();k++){
+	// 				printf("(%d,%d) ",ans[make_pair(j,i)][k].first,ans[make_pair(j,i)][k].second);
+	// 			}
+	// 			cout<<endl;
+	// 		}
+	// 	}
+	}
 	for(int i=0;i<ans[make_pair(end.first,end.second)].size();i++){
 		maze[ans[make_pair(end.first,end.second)][i].second][ans[make_pair(end.first,end.second)][i].first]=2;
 	}
